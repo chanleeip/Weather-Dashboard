@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./../static/css/output.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body class="bg-yellow-400">
+    <div class="overflow-hidden">
+        <div class="relative overflow-hidden bg-no-repeat bg-cover" style="background-position: 50%; background-image: url('./3366845.jpg');
+        height: 600px;">
+          <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed" style="background-color: rgba(0, 0, 0, 0.75);">
+            <div class="flex justify-center items-center h-full">
+              <div class="text-center text-white px-6 md:px-12">
+                <h1 class="text-4xl font-bold text-zinc-100 font-beabs tracking-wide leading-loose px-20" id="typewriter"></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="-mt-10" style="height:50px; transform: scale(2); transform-origin: top center; color:rgb(250,204,21);">
+            <svg viewBox="0 0 2880 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 0 48 L 1437.5 48 L 2880 48 L 2880 0 L 2160 0 C 1453.324 60.118 726.013 4.51 720 0 L 0 0 L 0 48 Z" fill="currentColor"></path>
+              </svg>
+        </div>
+    </div>
+   <div class="h-96 text-center mt-32 ml-28 mr-28 p-10 rounded-lg font-bold text-2xl pattern-zigzag-3d pattern-purple-500 pattern-bg-white pattern-size-16 pattern-opacity-100 ">
+    <div class=" h-80 backdrop-blur-sm backdrop-brightness-75 bg-white/30 overflow-hidden p-10 rounded-xl grid grid-cols-2">
+    <div><p class="text-black font-beabs tracking-wide">Click the button to get your coordinates.</p>
+      <button onclick="getLocation()" class="bg-black m-5 p-3 rounded-md text-sm text-white font-beabs tracking-wider">Try It</button>
+      <p id="demo" class="p-5 leading-loose font-beabs tracking-wider"></p>
+    </div>
+    <div>
+      <h1 class="font-beabs tracking-wider">choose the location</h1>
+      <input class="mt-5 bg-black text-white w-44 text-md font-semibold " type="text">
+    </div>
+    </div>
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+  var cur_latitude = position.coords.latitude;
+  var cur_longitude = position.coords.longitude;
+  console.log(cur_latitude,cur_longitude);
+  $.ajax({
+    url: '/send_coordinates',
+    data: {latitude:cur_latitude,longitude:cur_longitude},
+    type: 'POST',
+    success: function(response){
+      console.log(response.curr_temp);
+      document.getElementById('CurrentTemperature').innerHTML = response.curr_temp + "<br>";
+      document.getElementById('Temperature_forcasting').innerHTML = response.temp_forcasting + "<br>";
+    }
+  });
+}
+</script>
+   </div>        
+   <div class="mt-28 ml-28 mr-28 mb-20 p-10 rounded-xl pattern-zigzag-3d pattern-purple-500 pattern-bg-white pattern-size-16 pattern-opacity-100">
+    <div class="backdrop-blur-sm backdrop-brightness-75 bg-white/30 overflow-hidden p-5 rounded-sm grid grid-cols-2 gap-y-10 -gap-x-20">
+   <div class="h-20 w-48 bg-no-repeat bg-cover rounded-lg flex justify-items-end" style="background-image:url('./27722390_7370619.jpg')">
+    <p class=" backdrop-brightness-105 bg-white/30" id="CurrentTemperature">Your text here </p> </div>
+    <div class="h-20 w-48 bg-no-repeat bg-cover rounded-lg" style="background-image:url('./27722390_7370619.jpg')">
+    <p>YOUR text here</p></div>
+    <div class="h-20 w-48 bg-no-repeat bg-cover rounded-lg" style="background-image:url('./27722390_7370619.jpg')">
+    <p>your text here</p></div>
+    <div class="h-20 w-48 bg-no-repeat bg-cover rounded-lg" style="background-image:url('./27722390_7370619.jpg')">
+    <p>your text here</p></div>
+    <div class="h-20 w-48 bg-no-repeat bg-cover rounded-lg" style="background-image:url('./27722390_7370619.jpg')">
+    <p>your text here</p></div>
+    <div class="h-20 w-48 bg-no-repeat bg-cover rounded-lg" style="background-image:url('./27722390_7370619.jpg')">
+    <p>your text here</p></div>
+    </div>
+   </div>
+   
+   <div class="mt-28 ml-28 mr-28 mb-20 p-10 rounded-xl pattern-zigzag-3d pattern-purple-500 pattern-bg-white pattern-size-16 pattern-opacity-100">
+    <div class="backdrop-blur-sm backdrop-brightness-75 bg-white/30 overflow-hidden p-10 rounded-xl ">
+     <h1 class="font-beabs " id="Temperature_forcasting">Get our analytics here</h1>
+     <div class="font-beabs"> Temperature<div></div></div>
+     <div class="font-beabs">Relative humidity<div></div></div>
+     <div class="font-beabs">Dew_point<div></div></div>
+     <div class="font-beabs">Precipitation<div></div></div>
+     <div class="font-beabs">Rain<div></div></div>
+     <div class="font-beabs">Cloud cover<div></div></div>
+     <div class="font-beabs">Wind speeed<div></div></div>
+     <div class="font-beabs">Irradiance<div></div></div>
+     <div class="font-beabs">Wind Power<div></div></div>
+     <div class="font-beabs">Solar Power<div></div></div>
+     <div class="font-beabs">Tidal energy<div></div></div>
+    </div>
+   </div>
+   
+<script>
+  const words = ["Welcome to our website, dedicated to providing you with the latest weather details and predictions for your area.We work hard to bring you the most accurate and up-to-date information about the weather in your region."];
+  let i = 0;
+  let j = 0;
+  let currentWord = "";
+  let isDeleting = false;
+  
+  function type() {
+    currentWord = words[i];
+    if (isDeleting) {
+      document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
+      j--;
+      if (j == 0) {
+        isDeleting = false;
+        i++;
+        if (i == words.length) {
+          i = 0;
+        }
+      }
+    } else {
+      document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
+      j++;
+      if (j == currentWord.length) {
+        isDeleting = false;
+      }
+    }
+    setTimeout(type, 20);
+  }
+  
+  type();
+  </script>
+</body>
+</html>
